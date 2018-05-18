@@ -39,10 +39,14 @@ const actions = {
 
 		axios({
 			method: 'post',
-			url: this._vm.$url + '/Api/customer/index',
+			url: this._vm.$url + '/Api/customer/get_customerlist',
 			data: postData,
 		}).then(function(response) {
-			
+			let result = response.data;
+			//console.log(response);
+			if(result.code > 0){
+				commit(types.GET_CUSLIST,result.data)
+			}
 		}).catch(function(error) {
 			console.log(error);
 		});
@@ -55,6 +59,10 @@ const mutations = {
 	},
 	[types.HIDE_CUSLIST](state){
 		state.cuslistShow = false;
+	},
+	[types.GET_CUSLIST](state,data){
+		state.cusList = state.cusList.concat(data);
+		console.log(state.cusList);
 	}
 }
 

@@ -1,7 +1,7 @@
 <template>
 	<transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutRight">
 		<div class='content' v-show='registerShow'>
-			<mt-header title="注册新用户">
+			<mt-header title="注册新用户" fixed >
 				<mt-button icon="back" slot='left' @click='hide_register'>返回</mt-button>
 			</mt-header>
 			<div class='main'>	
