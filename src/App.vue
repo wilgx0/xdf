@@ -32,6 +32,7 @@
 </template>
 
 <script>
+//	test
 	import Login from './components/HelloWorld.vue';
 	import Index from './components/Index.vue'
 	
