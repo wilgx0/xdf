@@ -4,6 +4,7 @@ import axios from 'axios'
 const state ={
 	registerShow : false,
 	loginShow : true,
+	indexShow:true,
 }
 
 const getters = {
@@ -12,7 +13,11 @@ const getters = {
 	},
 	loginShow(state){
 		return state.loginShow;
+	},
+	indexShow(state){
+		return state.indexShow;
 	}
+	
 }
 
 const actions = {
@@ -26,8 +31,14 @@ const actions = {
 		commit(types.SHOW_LOGIN);
 	},
 	hide_login({commit}){
-		commit(types.HIDE_LOGIN)
+		commit(types.HIDE_LOGIN);
 	},
+	show_index({commit}){
+		commit(types.SHOW_INDEX);
+	},
+	hide_index({commit}){
+		commit(types.HIDE_INDEX);
+	}
 }
 
 const mutations = {
@@ -43,6 +54,12 @@ const mutations = {
 	[types.HIDE_LOGIN](state){
 		state.loginShow = false;
 	},
+	[types.SHOW_INDEX](state){
+		state.indexShow = true;
+	},
+	[types.HIDE_INDEX](state){
+		state.indexShow = false;
+	}
 }
 
 export default {

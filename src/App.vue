@@ -27,11 +27,14 @@
 		</mt-tabbar>
 		
 		<Login></Login>
+		<Index></Index>
   </div>
 </template>
 
 <script>
 	import Login from './components/HelloWorld.vue';
+	import Index from './components/Index.vue'
+	
 	var storage = window.sessionStorage;
 	
 	export default {
@@ -66,8 +69,10 @@
 						//console.log(response);
 						var result = response.data;
 						if(result.code > 0){		//登陆状态
+							_this.$store.dispatch('hide_index');
 							_this.$store.dispatch('hide_login');
 						} else { 
+							_this.$store.dispatch('hide_index');
 							_this.$store.dispatch('show_login');
 						}
 				}).catch(function(error) {
@@ -75,11 +80,13 @@
 				});
 			} else {
 				//用户未登陆
+				_this.$store.dispatch('hide_index');
 				_this.$store.dispatch('show_login');
 			}
 		},
 	  components:{
-	  	Login
+	  	Login,
+	  	Index,
 	  },
 	  
 	}

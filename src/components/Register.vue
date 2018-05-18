@@ -6,6 +6,7 @@
 			</mt-header>
 			<div class='main'>	
 				<p>
+					
 					<mt-field label="用户名" placeholder="请输入用户名" v-model="username" v-validate="'required|max:20'" name='用户名'></mt-field>
 					<mt-field label="密码" placeholder="请输入密码" type="password" v-model="pwd" v-validate="'required|max:20'" name='密码'></mt-field>
 					<mt-field label="重复密码" placeholder="请再次输入密码" type="password" v-model="rpwd" v-validate="'required|max:20'" name='重复密码'></mt-field>
