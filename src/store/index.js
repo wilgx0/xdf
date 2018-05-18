@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 //import getters from './getters'
 //import mutations from './mutations'
 import register from './modules/Register.js'
+import custmerlist from './modules/CustomerList'
+
 
 Vue.use(Vuex)
 
@@ -12,6 +14,7 @@ export default new Vuex.Store({
 //	actions,
 //	mutations,
 	modules:{
-		register
+		register,
+		custmerlist,
 	}
 })
