@@ -10,7 +10,7 @@
 			    <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
 			      <mt-loadmore :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
 			        <ul class="page-loadmore-list">
-			          <li v-for="item in list" class="page-loadmore-listitem">{{ item }}</li>
+			          <li v-for="item in cusList" class="page-loadmore-listitem">{{ item.name }}</li>
 			        </ul>
 			        <div slot="bottom" class="mint-loadmore-bottom">
 			          <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
@@ -32,21 +32,19 @@
 	
 	export default{
 		created(){
-			  for (let i = 1; i <= 20; i++) {
-		        this.list.push(i);
-		      }
-			this.$store.dispatch('get_cuslist',this.page);
+			this.first = true;
+			this.$store.dispatch('get_cuslist',this);
 		},
 		data(){
 			return {
-			    list: [],
 		        allLoaded: false,
 		        bottomStatus: '',
-		        wrapperHeight: 0
+		        wrapperHeight: 0,
+		        first:false,			//是否第一次加载
 			}
 		},
 		computed:{
-			...mapGetters(['cuslistShow',"cusList",'cusLastPage']),
+			...mapGetters(['cuslistShow',"cusList"]),
 		},
 		methods:{
 			 handleBottomChange(status) {
@@ -54,17 +52,8 @@
 		      },
 		
 		      loadBottom() {
-		        setTimeout(() => {
-		          let lastValue = this.list[this.list.length - 1];
-		          if (lastValue < 40) {
-		            for (let i = 1; i <= 10; i++) {
-		              this.list.push(lastValue + i);
-		            }
-		          } else {
-		            this.allLoaded = true;
-		          }
-		          this.$refs.loadmore.onBottomLoaded();
-		        }, 1500);
+				this.first = false;
+				this.$store.dispatch('get_cuslist',this);		
 		      },
 		      hide_cuslist(){
 		      	this.$store.dispatch('hide_cuslist')

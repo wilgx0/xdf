@@ -5,8 +5,9 @@ import qs from 'qs'
 
 const state = {
 	cuslistShow:false,
-	cusList:[],
-	cusLastPage:1,
+	cusList:[],		//数据列表
+	cusLastPage:0,  //总页数
+	page:1			//单前页数
 }
 
 const getters = {
@@ -28,29 +29,57 @@ const actions = {
 	hide_cuslist({commit}){
 		commit(types.HIDE_CUSLIST);
 	},
-	get_cuslist({commit},page){
+	get_cuslist({commit,state},obj){
+		var first = obj.first;
+		var _this = this;
+		if(!first){			//非第一次加载，每次调用页码加1
+			++ state.page;
+		}
+
 		let token = storage.getItem('XX-Token');
 		let device = storage.getItem('XX-Device-Type');
 		let postData = qs.stringify({
 				Token			: 	token,
 				DeviceType		:	device,
-				page			:	page,
+				page			:	state.page,
 		});
+		
+		//第一次加载的时候因为组件尚未渲染无法调用onBottomLoaded方法，所以这里需要进行判断
+		function isFirst(){
+			if(!first){
+				obj.$refs.loadmore.onBottomLoaded();	//表示数据加载完毕	
+			}	
+		}
+		
+		function getData(){
+			axios({
+				method: 'post',
+				url: _this._vm.$url + '/Api/customer/get_customerlist',
+				data: postData,
+			}).then(function(response) {
+				let result = response.data;
+				if(result.code > 0){
+					commit(types.GET_CUSLIST,result.data)	
+					isFirst()		
+				}
+			}).catch(function(error) {
+				console.log(error);
+			});
+		}
+		
+		if(first){			//第一次加载数据，不需要判断页码是否是最后一页
+			getData();
+			return;
+		}
+		
+		if(state.page <= state.cusLastPage){		//非第一次次加载调用的方法
+			getData();
+		} else {
+			obj.allLoaded = true;
+			isFirst();
+		}
+	},
 
-		axios({
-			method: 'post',
-			url: this._vm.$url + '/Api/customer/get_customerlist',
-			data: postData,
-		}).then(function(response) {
-			let result = response.data;
-			//console.log(response);
-			if(result.code > 0){
-				commit(types.GET_CUSLIST,result.data)
-			}
-		}).catch(function(error) {
-			console.log(error);
-		});
-	}
 }
 
 const mutations = {
@@ -61,9 +90,11 @@ const mutations = {
 		state.cuslistShow = false;
 	},
 	[types.GET_CUSLIST](state,data){
-		state.cusList = state.cusList.concat(data);
-		console.log(state.cusList);
-	}
+		state.cusList = state.cusList.concat(data.list);
+		state.cusLastPage = data.pageCount;
+		//console.log(state.cusList);
+	},
+
 }
 
 export default {

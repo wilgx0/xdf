@@ -11,11 +11,12 @@
 		
 		<ul class='app-list' v-if='userStatus'>
 			<li @click='show_cusinfo'><span>></span>提交客户信息</li>
-			<li ><span>></span>我的客户</li>
+			<li @click='show_cuslist'><span>></span>我的客户</li>
 			<li><span>></span>我的返佣</li>
 			<li><span>></span>查看单条返佣记录</li>
 			<li><span>></span>退出登录</li>
 			<CustomerInfo></CustomerInfo>		
+			<CustomerList></CustomerList>
 		</ul>		
 		
 		<Login></Login>
@@ -26,11 +27,13 @@
 
 <script>
 //	test
-	import Login from './components/HelloWorld.vue';					//登录界面
+	import Login from './components/HelloWorld.vue'					//登录界面
 	import Index from './components/Index.vue'								//加载遮罩
 	import CustomerInfo from './components/CustomerInfo.vue'	//提交客户信息
   import PlaceInfo from './components/PlaceInfo.vue'				//渠道用户资料审核
 	import {mapGetters} from 'vuex'
+	import CustomerList from './components/CustomerList.vue'	//客户列表
+	
 	
 	var storage = window.sessionStorage;
 	
@@ -41,14 +44,16 @@
 			}
 		},
 		methods:{
+			show_cuslist(){
+				this.$store.dispatch('show_cuslist')
+			},
 			show_cusinfo(){
 				this.$store.dispatch('show_cusinfo')
 			},
 			show_placeinfo(){
 				this.$store.dispatch('show_placeinfo')
 			},
-			isLogin(){
-					//检查用户是否登录
+			isLogin(){			//检查用户是否登录			
 				var _this = this;
 				var token = storage.getItem('XX-Token');
 				var device = storage.getItem('XX-Device-Type');
@@ -101,7 +106,7 @@
 	  	Index,
 	  	CustomerInfo,
 	  	PlaceInfo,
-	
+			CustomerList
 	  },
 	  
 	}
