@@ -2,7 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import '../static/css/reset.css'
+//import router from './router'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
@@ -19,7 +20,7 @@ Vue.prototype.$url = 'http://www.xdf.my';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+ // router,
   store,
   components: { App },
   template: '<App/>'

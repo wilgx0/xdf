@@ -5,6 +5,8 @@ const state ={
 	registerShow : false,
 	loginShow : true,
 	indexShow:true,
+	userData:{},
+	userStatus:false,		//用户状态
 }
 
 const getters = {
@@ -16,6 +18,12 @@ const getters = {
 	},
 	indexShow(state){
 		return state.indexShow;
+	},
+	userData(state){
+		return state.userData;
+	},
+	userStatus(state){
+		return state.userStatus;
 	}
 	
 }
@@ -38,7 +46,14 @@ const actions = {
 	},
 	hide_index({commit}){
 		commit(types.HIDE_INDEX);
+	},
+	set_userdata({commit},data){
+		commit(types.SET_USERDATA,data)
+	},
+	set_userStatus({commit},val){
+		commit(types.SET_USERSTATUS,val)
 	}
+	
 }
 
 const mutations = {
@@ -59,6 +74,13 @@ const mutations = {
 	},
 	[types.HIDE_INDEX](state){
 		state.indexShow = false;
+	},
+	[types.SET_USERDATA](state,data){
+		state.userData = data
+		//console.log(state.userData)
+	},
+	[types.SET_USERSTATUS](state,val){
+		state.userStatus = val;
 	}
 }
 

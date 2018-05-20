@@ -12,4 +12,8 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+<<<<<<< HEAD
 *.zip
+=======
+*.zip
+>>>>>>> b1c71f70830737df9f5cef1ba1577c704e346840

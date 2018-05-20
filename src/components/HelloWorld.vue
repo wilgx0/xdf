@@ -3,19 +3,19 @@
 	  <div class='content' v-show='loginShow'>  	
 		  	<mt-header fixed title="新东方"></mt-header>
 	  		<div  class='main'>
-			  	<h1>用户登录</h1>
+			  	<h1 class='loging-h1'>用户登录</h1>
 			  	<p>
 		  		  <mt-field label="用户名" placeholder="请输入用户名" v-model="username" v-validate="'required|max:20'" name='用户名'></mt-field>
 				  <mt-field label="密码" placeholder="请输入密码" type="password" v-model="pwd" v-validate="'required|max:20'" name='密码'></mt-field>
 			  	</p>
 			 
-				<p>
+				<p class='btn'>
 					<mt-button type="primary" size="large" @click="login">登  录</mt-button>
-				</p>
-					
-				<p>
+				</p>			
+				<p class='btn'>
 					<mt-button type="default" size="large" @click="show_register">注册新用户</mt-button>
 				</p>
+				
 				<span v-show="errors.any()" v-cloak :class='["error",errorStyle]'> 
 	  				<p v-for="(v,i) in errors.all()">{{v}}</p>
 	  			</span>
@@ -57,13 +57,18 @@ export default {
 					}).then(function(response) {
 						//console.log(response);
 						var result = response.data;
-						console.log(result);
+						//console.log(result);
 						if(result.code > 0){			//登录成功
 							storage.setItem('XX-Token', result.data.token);  
 							storage.setItem('XX-Device-Type', 'mobile');  
 							storage.setItem('user', JSON.stringify(result.data.user)); 
-	
 							_this.$store.dispatch('hide_login');
+						    //记录登录用户的信息			
+							_this.$store.dispatch('set_userdata',result.data.user)
+							//检查用户是否已通过审核
+							if(result.data.user.status == 1){			
+								_this.$store.dispatch('set_userStatus',true)
+							}
 						} else {		//登陆失败 
 							Toast(result.msg);
 						}
@@ -91,19 +96,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.main{
-		padding: 100px 20px;
+
+	.loging-h1 {
+		margin:20px;
 	}
-	.content {
-		width: 100%;
-		height: 100%;
-		background-color: #fff;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 999;
-		overflow: auto;
-	}
+	
 	.error {
 		color: red;
 	}

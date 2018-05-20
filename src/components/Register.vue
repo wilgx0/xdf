@@ -11,7 +11,7 @@
 					<mt-field label="密码" placeholder="请输入密码" type="password" v-model="pwd" v-validate="'required|max:20'" name='密码'></mt-field>
 					<mt-field label="重复密码" placeholder="请再次输入密码" type="password" v-model="rpwd" v-validate="'required|max:20'" name='重复密码'></mt-field>
 				</p>
-				<p class='submit'>
+				<p class='btn'>
 					<mt-button type="primary" size="large" @click="register">提    交</mt-button>
 				</p>
 				<span v-show="errors.any()" v-cloak :class='["error",errorStyle]'> 
@@ -92,23 +92,9 @@
 
 <style > 
 
-	.main{
-		padding: 50px 20px;
-	}
 	
-	.content {
-		width: 100%;
-		height: 100%;
-		background-color: #fff;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 999;
-		overflow: auto;
-	}
-	.submit {
-		padding: 0 20px;
-	}
+	
+
 	.mint-indicator-wrapper{
 		z-index:999;
 	}

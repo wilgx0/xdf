@@ -5,7 +5,8 @@ import Vuex from 'vuex'
 //import mutations from './mutations'
 import register from './modules/Register.js'
 import custmerlist from './modules/CustomerList'
-
+import customerInfo from './modules/CustomerInfo'
+import PlaceInfo from './modules/PlaceInfo'
 
 Vue.use(Vuex)
 
@@ -16,5 +17,7 @@ export default new Vuex.Store({
 	modules:{
 		register,
 		custmerlist,
+		customerInfo,
+		PlaceInfo,
 	}
 })
