@@ -20,8 +20,9 @@ Vue.prototype.$url = 'http://www.xdf.my';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
- // router,
+  //router,
   store,
   components: { App },
   template: '<App/>'
 })
+

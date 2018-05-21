@@ -5,8 +5,10 @@ const state ={
 	registerShow : false,
 	loginShow : true,
 	indexShow:true,
-	userData:{},
+	userData:{},			//用户数据
 	userStatus:false,		//用户状态
+	personalShow:false,		
+	
 }
 
 const getters = {
@@ -24,6 +26,9 @@ const getters = {
 	},
 	userStatus(state){
 		return state.userStatus;
+	},
+	personalShow(state){
+		return state.personalShow;
 	}
 	
 }
@@ -52,7 +57,14 @@ const actions = {
 	},
 	set_userStatus({commit},val){
 		commit(types.SET_USERSTATUS,val)
+	},
+	show_personal({commit}){
+		commit(types.SHOW_PERSONAL)
+	},
+	hide_personal({commit}){
+		commit(types.HIDE_PERSONAL)
 	}
+	
 	
 }
 
@@ -81,7 +93,13 @@ const mutations = {
 	},
 	[types.SET_USERSTATUS](state,val){
 		state.userStatus = val;
-	}
+	},
+	[types.SHOW_PERSONAL](state){
+		state.personalShow = true;
+	},
+	[types.HIDE_PERSONAL](state){
+		state.personalShow = false;
+	},
 }
 
 export default {

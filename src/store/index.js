@@ -7,6 +7,8 @@ import register from './modules/Register.js'
 import custmerlist from './modules/CustomerList'
 import customerInfo from './modules/CustomerInfo'
 import PlaceInfo from './modules/PlaceInfo'
+import Discount from './modules/Discount'
+
 
 Vue.use(Vuex)
 
@@ -19,5 +21,6 @@ export default new Vuex.Store({
 		custmerlist,
 		customerInfo,
 		PlaceInfo,
+		Discount,
 	}
 })

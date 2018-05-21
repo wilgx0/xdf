@@ -44,13 +44,13 @@ const actions = {
 				page			:	state.page,
 		});
 		
-		//第一次加载的时候因为组件尚未渲染无法调用onBottomLoaded方法，所以这里需要进行判断
+		//第一次加载的时候因为列表组件尚未渲染无法调用onBottomLoaded方法，所以这里需要进行判断
 		function isFirst(){
 			if(!first){
 				obj.$refs.loadmore.onBottomLoaded();	//表示数据加载完毕	
 			}	
 		}
-		
+		//获取服务器的数据
 		function getData(){
 			axios({
 				method: 'post',
@@ -90,6 +90,7 @@ const mutations = {
 		state.cuslistShow = false;
 	},
 	[types.GET_CUSLIST](state,data){
+		
 		state.cusList = state.cusList.concat(data.list);
 		state.cusLastPage = data.pageCount;
 		//console.log(state.cusList);

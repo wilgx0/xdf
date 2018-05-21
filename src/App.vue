@@ -2,48 +2,59 @@
   <div id="app">
 		<mt-header fixed title="新东方"></mt-header>
 		<div class='app-member'>
-			<p><span>></span>{{userData.username}}</p>
+			<p @click='show_personal'><span><img src="../static/img/right.png" alt="" /></span>{{userData.username}}</p>
 		</div>
 		
 		<div class='app-audit' v-if='!userStatus'>
-			<mt-button type="primary" @click='show_placeinfo'>渠道用户资料审核</mt-button>
+				<p>
+					<mt-button type="primary" @click='show_placeinfo'>渠道用户资料审核</mt-button>
+				</p>
+				<p>
+					<mt-button type="primary" @click='loginOut' style='width:169px;'>退出登录</mt-button>	
+				</p>
+				
 		</div>
 		
 		<ul class='app-list' v-if='userStatus'>
-			<li @click='show_cusinfo'><span>></span>提交客户信息</li>
-			<li @click='show_cuslist'><span>></span>我的客户</li>
-			<li><span>></span>我的返佣</li>
-			<li><span>></span>查看单条返佣记录</li>
-			<li><span>></span>退出登录</li>
+			<li @click='show_cusinfo'><span><img src="../static/img/right.png" alt="" /></span>提交客户信息</li>
+			<li @click='show_cuslist'><span><img src="../static/img/right.png" alt="" /></span>我的客户</li>
+			<li @click='show_discount'><span style='color:red;'>666元	<img src="../static/img/right.png" alt="" /></span>我的返佣</li>
+			<li @click='loginOut'><span><img src="../static/img/right.png" alt="" /></span>退出登录</li>
 			<CustomerInfo></CustomerInfo>		
 			<CustomerList></CustomerList>
+			<Discount></Discount>
 		</ul>		
 		
 		<Login></Login>
 		<Index></Index>
 		<PlaceInfo></PlaceInfo>
+		<Personal></Personal>
   </div>
 </template>
 
 <script>
 //	test
-	import Login from './components/HelloWorld.vue'					//登录界面
+	import Login from './components/HelloWorld.vue'						//登录界面
 	import Index from './components/Index.vue'								//加载遮罩
 	import CustomerInfo from './components/CustomerInfo.vue'	//提交客户信息
   import PlaceInfo from './components/PlaceInfo.vue'				//渠道用户资料审核
 	import {mapGetters} from 'vuex'
 	import CustomerList from './components/CustomerList.vue'	//客户列表
-	
+	import Personal from './components/Personal.vue'					// 个人资料
+	import Discount from './components/Discount.vue'					//返佣记录
 	
 	var storage = window.sessionStorage;
 	
 	export default {
 		data(){
 			return {
-				//userStatus:false,
 			}
 		},
 		methods:{
+			loginOut(){			//退出登录
+				storage.clear();
+				location.reload(); 
+			},
 			show_cuslist(){
 				this.$store.dispatch('show_cuslist')
 			},
@@ -52,6 +63,13 @@
 			},
 			show_placeinfo(){
 				this.$store.dispatch('show_placeinfo')
+			},
+			show_personal(){		//显示个人资料界面
+				//console.log('test')
+				this.$store.dispatch('show_personal')
+			},
+			show_discount(){	//显示返佣列表
+				this.$store.dispatch('show_discount')
 			},
 			isLogin(){			//检查用户是否登录			
 				var _this = this;
@@ -64,14 +82,11 @@
 				if(token != null && device != null) {
 					_this.$http({
 						method: 'post',
-						url: _this.$url + '/Api/place/getUserId',
+						url: _this.$url + '/Api/place/getUser',
 						data: postData,
 					}).then(function(response) {
-							//console.log(response);
 							var result = response.data;
-							//console.log(result);
 							if(result.code > 0){		//登陆状态
-								//console.log(result);
 								//记录登录用户的信息
 								_this.$store.dispatch('set_userdata',result.data)
 								//判断用户资料是否已通过审核
@@ -106,7 +121,9 @@
 	  	Index,
 	  	CustomerInfo,
 	  	PlaceInfo,
-			CustomerList
+			CustomerList,
+			Personal,
+			Discount,
 	  },
 	  
 	}
@@ -131,6 +148,8 @@ body{
 .btn {
 	padding: 10px 20px;
 }
+
+/*隐藏组件的样式*/
 .content {
 	width: 100%;
 	height: 100%;
@@ -185,4 +204,69 @@ body{
 .app-audit button{
 	margin-top:50px;
 }
+.app-audit p {
+	height:50px;
+}
+/*数据列表的样式 s*/
+.snake{
+	display: block;
+	padding-left: 45%;
+}
+.page-loadmore-list{
+	padding:0px;
+	margin-top:40px;
+}
+.page-loadmore-list > li{
+	list-style:none;
+	height: 55px;
+	line-height: 55px;
+  border-top: 1px solid rgb(238, 238, 238);
+	
+}
+@component-namespace page {
+    @component loadmore {
+      @descendent desc {
+        text-align: center;
+        color: #666;
+        padding-bottom: 5px;
+        &:last-of-type {
+          border-bottom: solid 1px #eee;
+        }
+      }
+
+      @descendent listitem {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: solid 1px #eee;
+        text-align: center;
+        &:first-child {
+          border-top: solid 1px #eee;
+        }
+      }
+
+      @descendent wrapper {
+        overflow: scroll;
+      }
+
+      .mint-spinner {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+}
+
+@component mint-loadmore-bottom {
+	span {
+	  display: inline-block;
+	  transition: .2s linear;
+	  vertical-align: middle;
+	
+	  @when rotate {
+	    transform: rotate(180deg);
+	  }
+	}
+}
+/*数据列表的样式 e*/
+
+
 </style>

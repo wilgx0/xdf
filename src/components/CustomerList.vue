@@ -67,63 +67,6 @@
 </script>
 
 <style>
-.snake{
-	display: block;
-	padding-left: 45%;
-}
-.page-loadmore-list{
-	padding:0px;
-	margin-top:40px;
-}
-.page-loadmore-list > li{
-	list-style:none;
-	height: 55px;
-	line-height: 55px;
-    border-top: 1px solid rgb(238, 238, 238);
-	
-}
-@component-namespace page {
-    @component loadmore {
-      @descendent desc {
-        text-align: center;
-        color: #666;
-        padding-bottom: 5px;
-        &:last-of-type {
-          border-bottom: solid 1px #eee;
-        }
-      }
 
-      @descendent listitem {
-        height: 50px;
-        line-height: 50px;
-        border-bottom: solid 1px #eee;
-        text-align: center;
-        &:first-child {
-          border-top: solid 1px #eee;
-        }
-      }
-
-      @descendent wrapper {
-        overflow: scroll;
-      }
-
-      .mint-spinner {
-        display: inline-block;
-        vertical-align: middle;
-      }
-    }
-}
-
-@component mint-loadmore-bottom {
-	span {
-	  display: inline-block;
-	  transition: .2s linear;
-	  vertical-align: middle;
-	
-	  @when rotate {
-	    transform: rotate(180deg);
-	  }
-	}
-}	
 
 </style>
