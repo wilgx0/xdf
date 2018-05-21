@@ -66,7 +66,8 @@ export default {
 						    //记录登录用户的信息			
 							_this.$store.dispatch('set_userdata',result.data.user)
 							//检查用户是否已通过审核
-							if(result.data.user.status == 1){			
+							if(result.data.user.status == 1){	
+								_this.$store.dispatch('get_discountsum')			//计算佣金总金额
 								_this.$store.dispatch('set_userStatus',true)
 							}
 						} else {		//登陆失败 

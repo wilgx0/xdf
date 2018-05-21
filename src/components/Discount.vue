@@ -40,7 +40,6 @@
 		},
 		data() {
 			return {
-		 	    list: [],
 		        allLoaded: false,
 		        bottomStatus: '',
 		        wrapperHeight: 0,
@@ -48,7 +47,7 @@
 			}
 		},
 		methods: {
-			show_discountsub(id){
+			show_discountsub(id){			//显示佣金明细列表
 				this.$store.dispatch('show_discountsub',id)
 			},
 			hide_discount() {

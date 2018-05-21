@@ -18,7 +18,7 @@
 		<ul class='app-list' v-if='userStatus'>
 			<li @click='show_cusinfo'><span><img src="../static/img/right.png" alt="" /></span>提交客户信息</li>
 			<li @click='show_cuslist'><span><img src="../static/img/right.png" alt="" /></span>我的客户</li>
-			<li @click='show_discount'><span style='color:red;'>666元	<img src="../static/img/right.png" alt="" /></span>我的返佣</li>
+			<li @click='show_discount'><span style='color:red;'>{{discountsum}}元	<img src="../static/img/right.png" alt="" /></span>我的返佣</li>
 			<li @click='loginOut'><span><img src="../static/img/right.png" alt="" /></span>退出登录</li>
 			<CustomerInfo></CustomerInfo>		
 			<CustomerList></CustomerList>
@@ -111,10 +111,11 @@
 			},
 		},
 		computed:{
-			...mapGetters(['userData','userStatus']),
+			...mapGetters(['userData','userStatus','discountsum']),
 		},
 		created() {
-			this.isLogin();
+			this.isLogin();		//检查用户是否登录
+			
 		},
 	  components:{
 	  	Login,
