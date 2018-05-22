@@ -1,16 +1,18 @@
 import types from '../types.js'
 import axios from 'axios'
 import qs from 'qs'
-var storage = window.sessionStorage;
+import {getToken} from '../../common.js'
+//var storage = window.sessionStorage;
 /**
  * 获取登录用户的token和设备类型
  */
-function getToken(){
-	return {
-		Token			: 	storage.getItem('XX-Token'),
-		DeviceType		:	storage.getItem('XX-Device-Type'),
-	}
-}
+//function getToken(){
+//	return {
+//		Token			: 	storage.getItem('XX-Token'),
+//		DeviceType		:	storage.getItem('XX-Device-Type'),
+//	}
+//}
+
 
 
 const state ={

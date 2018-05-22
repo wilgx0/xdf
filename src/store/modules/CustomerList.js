@@ -61,6 +61,9 @@ const actions = {
 				if(result.code > 0){
 					commit(types.GET_CUSLIST,result.data)	
 					isFirst()		
+					if(obj.loadingAnimation){
+						obj.loadingAnimation();
+					}
 				}
 			}).catch(function(error) {
 				console.log(error);
@@ -87,6 +90,9 @@ const mutations = {
 		state.cuslistShow = true;
 	},
 	[types.HIDE_CUSLIST](state){
+		state.cusList = [],		//数据列表
+		state.cusLastPage = 0,  //总页数
+		state.page = 1			//单前页数
 		state.cuslistShow = false;
 	},
 	[types.GET_CUSLIST](state,data){

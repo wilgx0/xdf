@@ -27,7 +27,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	
+
 	function timestampToTime(timestamp) {
 		var Y,M,D,h,m,s;
         var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000

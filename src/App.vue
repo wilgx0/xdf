@@ -2,7 +2,13 @@
   <div id="app">
 		<mt-header fixed title="新东方"></mt-header>
 		<div class='app-member'>
-			<p @click='show_personal'><span><img src="../static/img/right.png" alt="" /></span>{{userData.username}}</p>
+			<p @click='show_personal'>
+				<span><img src="../static/img/right.png" alt="" /></span>
+				<ul class='app-member-username'>
+					<li>{{userData.username}}</li>
+				  <li>{{userData.placetel}}</li>
+				</ul>
+			</p>
 		</div>
 		
 		<div class='app-audit' v-if='!userStatus'>
@@ -55,10 +61,10 @@
 				storage.clear();
 				location.reload(); 
 			},
-			show_cuslist(){
+			show_cuslist(){													//显示客户信息列表
 				this.$store.dispatch('show_cuslist')
 			},
-			show_cusinfo(){
+			show_cusinfo(){													//显示客户信息提交表单
 				this.$store.dispatch('show_cusinfo')
 			},
 			show_placeinfo(){
@@ -92,7 +98,8 @@
 								//判断用户资料是否已通过审核
 								if(result.data.status != 0){						
 									//_this.userStatus = true;
-									_this.$store.dispatch('set_userStatus',true)
+									_this.$store.dispatch('set_userStatus',true)	//用户状态为已审核通过
+									_this.$store.dispatch('get_discountsum')			//计算佣金总金额
 								}
 								_this.$store.dispatch('hide_index');
 								_this.$store.dispatch('hide_login');
@@ -183,20 +190,32 @@ body{
 }
 .app-member{
 	margin-top:40px;
-	height:147px;
-	background-color: #26a2ff;
-	color:#fff;
+	height:120px;
+	background-color: #fff;
+	position:relative;
 }
 
 .app-member > p {
 	text-align: left;
   padding: 0 23px 0 20px;
-  height: 147px;
-  line-height: 147px;
+  height: 120px;
+  line-height: 120px;
 }
 .app-member  > p > span{
- 
 	float:right;
+}
+.app-member-username{
+	height: 100%;
+	position:absolute;
+  top: -10px;
+  left: 20px;
+}
+.app-member-username > li:first-child{
+	color:#2c3e50;
+}
+.app-member-username > li{
+	color:#888;
+	height: 26px;
 }
 .app-audit{
     width: 100%;
