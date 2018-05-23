@@ -1,7 +1,7 @@
 import types from '../types.js'
 import axios from 'axios'
 import qs from 'qs'
-import {getToken} from '../../common.js'
+import {getToken,getFieldsByJsonstr} from '../../common.js'
 
 var formData = {
 	placename:'',			//渠道名称			
@@ -27,6 +27,10 @@ const getters = {
 }
 
 const actions = {
+	set_placeinfo({commit},data){
+		//console.log(data);
+		commit(types.SET_PLACEINFO,data);
+	},
 	show_placeinfo({commit}){
 		commit(types.SHOW_PLACEINFO)
 	},
@@ -71,7 +75,22 @@ const mutations = {
 	},
 	[types.HIDE_PLACEINFO](state){
 		state.placeInfoShow = false;
-	}
+	},
+	[types.SET_PLACEINFO](state,data){
+		state.placename = data.placename;			//渠道名称			
+		state.placetel = data.placetel;								//联系电话
+		state.placetype = data.placetype;							//类型
+		if(data.placetype == 1){
+			state.idnum = getFieldsByJsonstr(data.placedetails,'idnum');			//身份证号	(个人)
+			state.iban = getFieldsByJsonstr(data.placedetails,'iban');			//银行账号	(个人)
+			state.bank = getFieldsByJsonstr(data.placedetails,'bank');			//银行信息	(个人)	
+		} else if(data.placetype == 2){
+			state.charter = getFieldsByJsonstr(data.placedetails,'charter');			//营业执照	(公司)
+			state.legal = getFieldsByJsonstr(data.placedetails,'legal');		//法人		(公司)
+			state.address = getFieldsByJsonstr(data.placedetails,'address');			//地址		(公司)
+		}	
+		console.log(state);
+	},
 }
 
 export default {

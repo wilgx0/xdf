@@ -8,6 +8,7 @@ function getToken(){
 	}
 }
 
+//时间戳装换日期格式
 function timestampToTime(timestamp) {
 	var Y,M,D,h,m,s;
     var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -20,7 +21,21 @@ function timestampToTime(timestamp) {
     return Y+M+D+h+m+s;
 }
 
+//从json字符串中提取字段
+function getFieldsByJsonstr(Data,fields){
+	if(!Data){
+		return '';
+	}
+	Data = JSON.parse(Data);
+	if(Data[fields]){
+		return Data[fields];
+	} else {
+		return '';
+	}
+}
+
 export {
 	getToken,
 	timestampToTime,
+	getFieldsByJsonstr,
 }

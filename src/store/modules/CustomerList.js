@@ -58,13 +58,13 @@ const actions = {
 				data: postData,
 			}).then(function(response) {
 				let result = response.data;
-				if(result.code > 0){
+				
 					commit(types.GET_CUSLIST,result.data)	
 					isFirst()		
 					if(obj.loadingAnimation){
 						obj.loadingAnimation();
 					}
-				}
+				
 			}).catch(function(error) {
 				console.log(error);
 			});

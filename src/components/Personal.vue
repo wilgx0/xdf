@@ -8,7 +8,16 @@
 				<li><span>{{userData.username}}</span>账号</li>
 				<li><span>{{userData.placename}}</span>渠道名称</li>
 				<li><span>{{userData.placetel}}</span>联系方式</li>	
-				<li><span>无</span>其他</li>	
+				<template v-if='userData.placetype == 1'>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'idnum')}}</span>身份证号</li>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'iban')}}</span>银行开户账号</li>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'bank')}}</span>开户行信息</li>	
+				</template>
+				<template v-if='userData.placetype == 2'>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'charter')}}</span>营业执照</li>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'legal')}}</span>法人姓名</li>
+					<li><span>{{getFieldsByJsonstr(userData.placedetails,'address')}}</span>联系地址</li>	
+				</template>
 			</ul>	
 		</div>
 	</transition>
@@ -17,8 +26,12 @@
 <script>
 	import {mapGetters} from 'vuex'
 	import 'animate.css/animate.css'
+	import {getFieldsByJsonstr} from '../common.js'
 	
 	export default{
+		created(){
+			
+		},
 		data(){
 			return {
 				
@@ -28,6 +41,7 @@
 	
 		},
 		methods:{
+			getFieldsByJsonstr,
 			hide_personal(){
 				this.$store.dispatch('hide_personal')
 			}

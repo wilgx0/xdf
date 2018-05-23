@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import 'animate.css/animate.css'
 	import { mapGetters } from 'vuex'
 	import {timestampToTime} from '../common.js'
 	
@@ -71,6 +72,7 @@
 <style lang='less'>
 	.discountsub{
 		.page-loadmore-listitem{
+		    height: 55px;
 			& span {
 				float:right;
 			} 

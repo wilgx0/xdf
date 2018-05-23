@@ -60,9 +60,6 @@
 			cuslistShow(val){
 				if(val == true){		//显示页面时重新加载数据
 					Indicator.open('加载中...');
-					this.loadingAnimation = function(){
-						Indicator.close();
-					}
 					this.allLoaded = false;
 					this.first = true;
 					this.$store.dispatch('get_cuslist',this);
@@ -70,6 +67,9 @@
 			}
 		},
 		methods:{
+			  loadingAnimation(){
+				Indicator.close();
+			  },
 			  timestampToTime,
 			  cusstateToStr(val){
 			  	const state = {
