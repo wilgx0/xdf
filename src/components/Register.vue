@@ -16,7 +16,7 @@
 				<p style="margin-top:15px;">
 					<mt-field label="渠道名称" placeholder="请输入渠道名称" v-model='placename'  v-validate="'required|max:20'" name='渠道名称'></mt-field>
 					<mt-field label="联系电话" placeholder="请输入联系方式" v-model='placetel'  v-validate="'required|phone'" name='联系电话'></mt-field>
-					<mt-field label="联系地址" placeholder="联系地址" v-model='address' v-validate="'required|max:20'" name='联系地址'></mt-field>
+					<mt-field label="联系地址" placeholder="联系地址" v-model='address' v-validate="'required|max:50'" name='联系地址'></mt-field>
 					<mt-field label="开户银行账号" placeholder="银行开户账号" v-model='iban' v-validate="'required|max:20'" name='银行开户账号' ></mt-field>
 					<mt-field label="开户银行信息" placeholder="开户行信息" v-model='bank' v-validate="'required|max:20'" name='开户行信息' ></mt-field>
 				</p>
@@ -115,8 +115,7 @@
 					if(result){
 					    //数据验证
                         if(_this.pwd != _this.rpwd){
-                            Toast('二次输入的密码不一致！');
-                            return false;
+                            Toast('二次输入的密码不一致！'); return;
                         }
                         if(_this.placetype == 1){           //个人
                             if(!myValidate(this.idnum,'isIdCard')){
