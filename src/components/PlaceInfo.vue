@@ -19,7 +19,7 @@
 				      :options="options" />
 				</p>
 				<p v-if='placetype == 1'>
-					<mt-field label="身份证号" placeholder="省份证号" v-model= 'idnum' v-validate="'required|idCard'" name='身份证号' ></mt-field>		
+					<mt-field label="身份证号" placeholder="身份证号" v-model= 'idnum' v-validate="'required|idCard'" name='身份证号' ></mt-field>
 					<mt-field label="银行开户账号" placeholder="银行开户账号" v-model='iban' v-validate="'required|max:20'" name='银行开户账号' ></mt-field>	
 					<mt-field label="开户行信息" placeholder="开户行信息" v-model='bank' v-validate="'required|max:20'" name='开户行信息' ></mt-field>
 				</p>
@@ -84,7 +84,7 @@
 		},
 		computed:{
 			...mapGetters(['placeInfoShow']),
-			placename:{
+			placename:{				//渠道名称
 				set(value){
 					this.$store.state.PlaceInfo.placename = value
 				},
@@ -92,7 +92,7 @@
 					return this.$store.state.PlaceInfo.placename
 				}
 			},
-			placetel:{
+			placetel:{				//联系电话
 				set(value){
 					this.$store.state.PlaceInfo.placetel = value
 				},
@@ -100,7 +100,7 @@
 					return this.$store.state.PlaceInfo.placetel
 				}
 			},
-			placetype:{
+			placetype:{					//渠道类型
 				set(value){
 					this.$store.state.PlaceInfo.placetype = value
 				},
@@ -108,7 +108,7 @@
 					return this.$store.state.PlaceInfo.placetype
 				}
 			},
-			idnum:{
+			idnum:{								//省份证号
 				set(value){
 					this.$store.state.PlaceInfo.idnum = value
 				},
@@ -116,7 +116,7 @@
 					return this.$store.state.PlaceInfo.idnum
 				}
 			},
-			iban:{
+			iban:{								//银行开户账号
 				set(value){
 					this.$store.state.PlaceInfo.iban = value
 				},
@@ -124,7 +124,7 @@
 					return this.$store.state.PlaceInfo.iban
 				}
 			},
-			bank:{
+			bank:{								//开户行信息
 				set(value){
 					this.$store.state.PlaceInfo.bank = value
 				},
@@ -132,7 +132,7 @@
 					return this.$store.state.PlaceInfo.bank
 				}
 			},
-			charter:{
+			charter:{							//营业执照
 				set(value){
 					this.$store.state.PlaceInfo.charter = value
 				},
@@ -140,7 +140,7 @@
 					return this.$store.state.PlaceInfo.charter
 				}
 			},
-			legal:{
+			legal:{								//法人姓名
 				set(value){
 					this.$store.state.PlaceInfo.legal = value
 				},
@@ -148,7 +148,7 @@
 					return this.$store.state.PlaceInfo.legal
 				}
 			},
-			address:{
+			address:{								//联系地址
 				set(value){
 					this.$store.state.PlaceInfo.address = value
 				},

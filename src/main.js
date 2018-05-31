@@ -16,6 +16,7 @@ Vue.use(Mint);
 Vue.prototype.$http = axios;
 Vue.prototype.$qs = qs;
 Vue.prototype.$url = 'http://www.xdf.my';
+//Vue.prototype.$url = 'http://xdftest.ynyccm.com';
 
 /* eslint-disable no-new */
 new Vue({

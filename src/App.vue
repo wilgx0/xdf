@@ -6,7 +6,7 @@
 				<span><img src="../static/img/right.png" alt="" /></span>
 				<ul class='app-member-username'>
 					<li>{{userData.username}}</li>
-				  <li>{{userData.placetel}}</li>
+				  	<li>{{userData.placetel}}</li>
 				</ul>
 			</p>
 		</div>
