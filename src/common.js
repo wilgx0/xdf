@@ -1,5 +1,5 @@
 var storage = window.sessionStorage;
-String.prototype.trim = function(){		//去除二边空格
+String.prototype.trim = function(){		//去除字符串两边的空格
     return this.replace(/(^\s*)|(\s*$)/g, "");
 };
 

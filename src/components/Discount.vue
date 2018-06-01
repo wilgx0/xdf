@@ -1,11 +1,22 @@
 <template>
 	<transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutRight">
 		<div class='content discount' v-show='discountShow'>
-			<mt-header title="我的返佣" fixed>
+			<mt-header title="我的返佣" fixed v-show="!searchShow">
 				<mt-button icon="back" slot='left' @click='hide_discount'>返回</mt-button>
+				<mt-button slot='right' @click="show_search">搜索</mt-button>
 			</mt-header>
+			<!--搜索 s-->
+			<div class="mySearch" v-show="searchShow">
+				<div>
+					<input type="text" placeholder="请输入要搜索的名称或电话" v-model="searchKey">
+				</div>
+				<div class="search-cancel">
+					<img src="../../static/img/search.png" alt="" >
+					<span >取消</span>
+				</div>
+			</div>
+			<!--搜索 e-->
 			<div class="page-loadmore">
-		
 				<div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
 					<mt-loadmore :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
 						<ul class="page-loadmore-list">
@@ -54,12 +65,8 @@
 	import EditInvoice from './EditInvoice.vue'
 	import {getFieldsByJsonstr} from '../common.js'
 	import {Indicator} from 'mint-ui'
-	
-	
+
 	export default {
-	    created() {
-	    
-	    },
 		mounted() {
 		  this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
 		},
@@ -75,6 +82,8 @@
 		},
 		data() {
 			return {
+                searchKey: '',      //要搜索的值
+                searchShow: false,  // 搜索框的显示
 		        allLoaded: false,
 		        bottomStatus: '',
 		        wrapperHeight: 0,
@@ -82,6 +91,9 @@
 			}
 		},
 		methods: {
+            show_search() {
+                this.searchShow = true;
+            },
 			loadingAnimation(){
 				Indicator.close();
 			},
@@ -116,6 +128,39 @@
 
 <style lang='less'>
 	.discount{
+		.mySearch {
+			width: 100%;
+			height: 40px;
+			background-color: black;
+			position: fixed;
+			top: 0px;
+			opacity: 0.7;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+            z-index: 666;
+			div {
+				&:first-child {
+					flex: 7;
+					text-align: right;
+					input {
+						width: 80%;
+						height: 32px;
+					}
+				}
+				&.search-cancel {
+					flex: 3;
+					text-align: left;
+					text-indent: 10px;
+					span {
+						color: #fff;
+						position: relative;
+						top: -9px;
+						left: 9px;
+					}
+				}
+			}
+		}
 		.page-loadmore-listitem{
 			height: 85px;
 		    text-align: left;

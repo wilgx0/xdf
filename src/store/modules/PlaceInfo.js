@@ -7,13 +7,13 @@ var formData = {
 	placename:'',			//渠道名称			
 	placetel:'',			//联系电话
 	placetype:'',			//类型
-	idnum:'',				//身份证号	(个人)
-	iban:'',				//银行账号	(个人)
-	bank:'',				//银行信息	(个人)	
+	iban:'',				//银行账号
+	bank:'',				//银行信息
+    address:'',				//地址
+    idnum:'',				//身份证号	(个人)
 	charter:'',				//营业执照	(公司)
 	legal:'',				//法人		(公司)
-	address:'',				//地址		(公司)
-	
+    linkman:'',				//联系人    (公司)
 }
 const state ={
 	...formData,
@@ -28,7 +28,6 @@ const getters = {
 
 const actions = {
 	set_placeinfo({commit},data){
-		//console.log(data);
 		commit(types.SET_PLACEINFO,data);
 	},
 	show_placeinfo({commit}){
@@ -44,12 +43,13 @@ const actions = {
 			placename	:state.placename,			//渠道名称			
 			placetel	:state.placetel,			//联系电话
 			placetype	:state.placetype,			//类型
+            iban		:state.iban,				//银行账号
+            bank		:state.bank,				//银行信息
+            address		:state.address,				//地址
 			idnum		:state.idnum,				//身份证号	(个人)
-			iban		:state.iban,				//银行账号	(个人)
-			bank		:state.bank,				//银行信息	(个人)	
 			charter		:state.charter,				//营业执照	(公司)
 			legal		:state.legal,				//法人		(公司)
-			address		:state.address,				//地址		(公司)
+            linkman		:state.linkman,				//联系人    (公司)
 		})
 		function getData(url){
 			axios({
@@ -77,19 +77,22 @@ const mutations = {
 		state.placeInfoShow = false;
 	},
 	[types.SET_PLACEINFO](state,data){
+		//console.log(data);return;
 		state.placename = data.placename;			//渠道名称			
 		state.placetel = data.placetel;								//联系电话
 		state.placetype = data.placetype;							//类型
+        state.iban =data.iban;			      	 //银行账号
+        state.bank = data.bank;			     	 //银行信息
+        state.address = data.address;		  	//地址
 		if(data.placetype == 1){
-			state.idnum = getFieldsByJsonstr(data.placedetails,'idnum');			//身份证号	(个人)
-			state.iban = getFieldsByJsonstr(data.placedetails,'iban');			//银行账号	(个人)
-			state.bank = getFieldsByJsonstr(data.placedetails,'bank');			//银行信息	(个人)	
+			state.idnum = data.idnum;			//身份证号	(个人)
+
 		} else if(data.placetype == 2){
-			state.charter = getFieldsByJsonstr(data.placedetails,'charter');			//营业执照	(公司)
-			state.legal = getFieldsByJsonstr(data.placedetails,'legal');		//法人		(公司)
-			state.address = getFieldsByJsonstr(data.placedetails,'address');			//地址		(公司)
-		}	
-		console.log(state);
+			state.charter = data.charter;			//营业执照	(公司)
+			state.legal = data.legal;				//法人		(公司)
+            state.linkman = data.linkman;			//联系人    (公司)
+        }
+
 	},
 }
 

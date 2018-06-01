@@ -2,7 +2,7 @@
 	<transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutRight">
 	  <div class='content' v-show='loginShow'>  	
 		  	<mt-header fixed title="新东方"></mt-header>
-	  		<div  class='main'>
+	  		<div  class='main' style="margin-top:100px;">
 			  	<h1 class='loging-h1'>用户登录</h1>
 			  	<p>
 		  		  <mt-field label="用户名" placeholder="请输入用户名" v-model="username" v-validate="'required|max:20'" name='用户名'></mt-field>

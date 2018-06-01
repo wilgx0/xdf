@@ -7,16 +7,18 @@
 			<ul class='app-list'>
 				<li><span>{{userData.username}}</span>账号</li>
 				<li><span>{{userData.placename}}</span>渠道名称</li>
-				<li><span>{{userData.placetel}}</span>联系方式</li>	
+				<li><span>{{userData.placetel}}</span>联系电话</li>
+				<li><span>{{userData.address}}</span>联系地址</li>
+				<li><span>{{userData.iban}}</span>银行账号</li>
+				<li><span>{{userData.bank}}</span>银行信息</li>
+
 				<template v-if='userData.placetype == 1'>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'idnum')}}</span>身份证号</li>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'iban')}}</span>银行开户账号</li>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'bank')}}</span>开户行信息</li>	
+					<li><span>{{userData.idnum}}</span>身份证号</li>
 				</template>
 				<template v-if='userData.placetype == 2'>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'charter')}}</span>营业执照</li>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'legal')}}</span>法人姓名</li>
-					<li><span>{{getFieldsByJsonstr(userData.placedetails,'address')}}</span>联系地址</li>	
+					<li><span>{{userData.charter}}</span>营业执照</li>
+					<li><span>{{userData.legal}}</span>法人代表</li>
+					<li><span>{{userData.linkman}}</span>联系人</li>
 				</template>
 			</ul>	
 		</div>

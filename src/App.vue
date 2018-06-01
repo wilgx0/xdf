@@ -6,7 +6,7 @@
 				<span><img src="../static/img/right.png" alt="" /></span>
 				<ul class='app-member-username'>
 					<li>{{userData.username}}</li>
-				  	<li>{{userData.placetel}}</li>
+				  	<li style="font-size:12px;">{{userData.placetel}}</li>
 				</ul>
 			</p>
 		</div>
@@ -95,6 +95,7 @@
 							if(result.code > 0){		//登陆状态
 								//记录登录用户的信息
 								_this.$store.dispatch('set_userdata',result.data)
+                                _this.$store.dispatch('set_placeinfo',result.data)
 								//判断用户资料是否已通过审核
 								if(result.data.status != 0){						
 									//_this.userStatus = true;
@@ -151,7 +152,7 @@ body{
 
 }
 .main{
-	padding: 50px 20px;
+	margin-top:40px;
 }
 .btn {
 	padding: 10px 20px;
@@ -161,7 +162,7 @@ body{
 .content {
 	width: 100%;
 	height: 100%;
-	background-color: #fff;
+	background-color: #f0f0f0;
 	position: fixed;
 	top: 0;
 	left: 0;

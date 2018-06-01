@@ -7,7 +7,11 @@
 			<div class='main'>
 				<p>
 					<mt-field label="渠道名称" placeholder="请输入渠道名称" v-model='placename'  v-validate="'required|max:20'" name='渠道名称'></mt-field>	
-					<mt-field label="联系电话" placeholder="请输入联系方式" v-model='placetel'  v-validate="'required|phone'" name='联系电话'></mt-field>				   
+					<mt-field label="联系电话" placeholder="请输入联系方式" v-model='placetel'  v-validate="'required|phone'" name='联系电话'></mt-field>
+
+					<mt-field label="联系地址" placeholder="请输入联系方式" v-model='address'  v-validate="'required|max:20'" name='联系地址'></mt-field>
+					<mt-field label="银行账号" placeholder="请输入联系方式" v-model='iban'  v-validate="'required|max:20'" name='银行账号'></mt-field>
+					<mt-field label="银行信息" placeholder="请输入联系方式" v-model='bank'  v-validate="'required|max:20'" name='银行信息'></mt-field>
 				</p>	
 				<p style='padding-top: 15px;text-align:left;margin-bottom:10px;'>
 					 <mt-radio
@@ -20,13 +24,12 @@
 				</p>
 				<p v-if='placetype == 1'>
 					<mt-field label="身份证号" placeholder="身份证号" v-model= 'idnum' v-validate="'required|idCard'" name='身份证号' ></mt-field>
-					<mt-field label="银行开户账号" placeholder="银行开户账号" v-model='iban' v-validate="'required|max:20'" name='银行开户账号' ></mt-field>	
-					<mt-field label="开户行信息" placeholder="开户行信息" v-model='bank' v-validate="'required|max:20'" name='开户行信息' ></mt-field>
+
 				</p>
 				<p v-else-if='placetype == 2'>
 					<mt-field label="营业执照" placeholder="营业执照" v-model='charter' v-validate="'required|max:20'" name='营业执照' ></mt-field>		
-					<mt-field label="法人姓名" placeholder="法人姓名" v-model='legal' v-validate="'required|max:20'" name='法人姓名' ></mt-field>	
-					<mt-field label="联系地址" placeholder="联系地址" v-model='address' v-validate="'required|max:20'" name='联系地址'></mt-field>
+					<mt-field label="法人姓名" placeholder="法人姓名" v-model='legal' v-validate="'required|max:20'" name='法人姓名' ></mt-field>
+					<mt-field label="联系人" placeholder="联系人" v-model='linkman' v-validate="'required|max:20'" name='联系人' ></mt-field>
 				</p>
 			
 				<p class='btn'>
@@ -52,11 +55,13 @@
 			this.options = [
 		      {
 		        label: '个人',
-		        value: '1'
+		        value: '1',
+			    disabled: true,
 		      },
 		      {
 		        label: '公司',
-		        value: '2'
+		        value: '2',
+			    disabled: true,
 		      }
 		    ];
 		},
@@ -84,7 +89,7 @@
 		},
 		computed:{
 			...mapGetters(['placeInfoShow']),
-			placename:{				//渠道名称
+			placename:{								//渠道名称
 				set(value){
 					this.$store.state.PlaceInfo.placename = value
 				},
@@ -92,7 +97,7 @@
 					return this.$store.state.PlaceInfo.placename
 				}
 			},
-			placetel:{				//联系电话
+			placetel:{								//联系电话
 				set(value){
 					this.$store.state.PlaceInfo.placetel = value
 				},
@@ -100,7 +105,7 @@
 					return this.$store.state.PlaceInfo.placetel
 				}
 			},
-			placetype:{					//渠道类型
+			placetype:{								//渠道类型
 				set(value){
 					this.$store.state.PlaceInfo.placetype = value
 				},
@@ -108,7 +113,31 @@
 					return this.$store.state.PlaceInfo.placetype
 				}
 			},
-			idnum:{								//省份证号
+            iban:{									//银行开户账号
+                set(value){
+                    this.$store.state.PlaceInfo.iban = value
+                },
+                get(){
+                    return this.$store.state.PlaceInfo.iban
+                }
+            },
+            bank:{									//开户行信息
+                set(value){
+                    this.$store.state.PlaceInfo.bank = value
+                },
+                get(){
+                    return this.$store.state.PlaceInfo.bank
+                }
+            },
+            address:{								//联系地址
+                set(value){
+                    this.$store.state.PlaceInfo.address = value
+                },
+                get(){
+                    return this.$store.state.PlaceInfo.address
+                }
+            },
+			idnum:{									//身份证号
 				set(value){
 					this.$store.state.PlaceInfo.idnum = value
 				},
@@ -116,23 +145,7 @@
 					return this.$store.state.PlaceInfo.idnum
 				}
 			},
-			iban:{								//银行开户账号
-				set(value){
-					this.$store.state.PlaceInfo.iban = value
-				},
-				get(){
-					return this.$store.state.PlaceInfo.iban
-				}
-			},
-			bank:{								//开户行信息
-				set(value){
-					this.$store.state.PlaceInfo.bank = value
-				},
-				get(){
-					return this.$store.state.PlaceInfo.bank
-				}
-			},
-			charter:{							//营业执照
+			charter:{								//营业执照
 				set(value){
 					this.$store.state.PlaceInfo.charter = value
 				},
@@ -148,14 +161,15 @@
 					return this.$store.state.PlaceInfo.legal
 				}
 			},
-			address:{								//联系地址
-				set(value){
-					this.$store.state.PlaceInfo.address = value
-				},
-				get(){
-					return this.$store.state.PlaceInfo.address
-				}
-			},
+            linkman:{								//法人姓名
+                set(value){
+                    this.$store.state.PlaceInfo.linkman = value
+                },
+                get(){
+                    return this.$store.state.PlaceInfo.linkman
+                }
+            },
+
 		},
 		
 	}

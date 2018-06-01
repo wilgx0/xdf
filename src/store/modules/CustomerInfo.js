@@ -11,12 +11,14 @@ var formData = {
 	cusClass:'',				//意向年级
 	cusRemark:'',				//备注
 	id:'',						//id
+    cusstate:0,					//客户状态
 }
 
 var formData_copy = JSON.parse(JSON.stringify(formData))
 
 const state={
-	...formData,	
+	...formData,
+
 	cusinfoShow:false,
 }
 
@@ -101,13 +103,17 @@ const mutations = {
 		state.cusinfoShow = false;
 	},
 	[types.SET_CUSFORMDATA](state,data){
+
 		state.cusName = data.name;			
 		state.cusTel = data.tel;				
 		state.cusWx = data.wx;				
 		state.cusCountry = data.country;				
 		state.cusClass = data.class;			
 		state.cusRemark = data.remark;			
-		state.id = data.id;						
+		state.id = data.id;
+		state.cusstate = data.cusstate;
+        // console.log(data);
+        // console.log(state);
 	},
 }
 
