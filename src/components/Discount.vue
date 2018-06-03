@@ -11,8 +11,8 @@
 					<input type="text" placeholder="请输入要搜索的名称或电话" v-model="searchKey">
 				</div>
 				<div class="search-cancel">
-					<img src="../../static/img/search.png" alt="" >
-					<span >取消</span>
+					<img src="../../static/img/search.png" alt=""  @click="search">
+					<span @click="hide_search">取消</span>
 				</div>
 			</div>
 			<!--搜索 e-->
@@ -74,7 +74,6 @@
 			discountShow(val){
 				if(val == true){
 					this.allLoaded = false;
-				  	this.first = true;
 				  	Indicator.open('加载中...');
 	  				this.$store.dispatch('get_discountlist',this);
 				}
@@ -82,19 +81,30 @@
 		},
 		data() {
 			return {
-                searchKey: '',      //要搜索的值
-                searchShow: false,  // 搜索框的显示
-		        allLoaded: false,
-		        bottomStatus: '',
+                searchKey: '',      	//要搜索的值
+                searchShow: false,  	// 搜索框的显示
+		        allLoaded: false,		//所有数据是否加载完毕
+		        bottomStatus: '',		//单次加载是否完毕
 		        wrapperHeight: 0,
-		        first:false,			//是否第一次加载
 			}
 		},
 		methods: {
-            show_search() {
+            hide_search() {
+                Indicator.open('加载中...');
+                this.searchKey = '';
+                this.searchShow = false;
+                this.allLoaded = false;
+                this.search();  //需要重新渲染
+            },
+			search(){				//查找
+                this.allLoaded = false;
+                Indicator.open('加载中...');
+                this.$store.dispatch('get_discountlist',this);
+			},
+            show_search() {				//显示搜索框
                 this.searchShow = true;
             },
-			loadingAnimation(){
+			loadingAnimation(){			//关闭加载动画
 				Indicator.close();
 			},
 			getFieldsByJsonstr,
@@ -108,9 +118,8 @@
 				this.bottomStatus = status;
 			},
 		
-			loadBottom() {
-			    this.first = false;
-				this.$store.dispatch('get_discountlist',this);	
+			loadBottom() {							//上拉加载更多数据
+                this.$store.dispatch('loadMoreDisCount',this);
 			},
 			show_invoice(id){
 				this.$store.dispatch('show_invoice',id)
@@ -204,11 +213,7 @@
 						}
 					}
 				}
-		    	
-		    	
 		    }
-			
-			
 		}
 	}
 </style>

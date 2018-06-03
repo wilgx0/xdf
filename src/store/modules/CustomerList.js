@@ -86,7 +86,10 @@ const actions = {
                 console.log(error);
             });
         }
-        if(state.page < state.cusLastPage){
+
+        // console.log(state.page);
+        // console.log(state.cusLastPage);
+        if(state.page <= state.cusLastPage){
             getData();
         } else {
             obj.allLoaded = true;			//所有数据加载完毕

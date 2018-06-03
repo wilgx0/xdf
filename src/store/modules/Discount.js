@@ -22,7 +22,7 @@ const state ={
 	discountSubShow:false,	//佣金明细页面的显示
 	editInvoiceShow:false,	//发票信息页面的显示
    
-    discountsublist:[],		//子页面的数据明细	
+	discountsublist:[],		//子页面的数据明细
 	subpage:1,				//子页面当前页
 	sublastpage:0,			//子页面的总页数
 	subid:0,				//子页面当前id
@@ -191,23 +191,16 @@ const actions = {
 		commit(types.HIDE_DISCOUNT)
 	},
 	get_discountlist({commit,state},obj){			//加载佣金列表数据
-		var first = obj.first;
 		var _this = this;
-		if(!first){			//非第一次加载，每次调用页码加1
-			++ state.page;
-		}
-	
+        state.LastPage = 0
+		state.page = 1,
+		state.discountlist = []
 		let postData = qs.stringify({
 			...getToken(),
-			page			:	state.page,
+			page		: 	state.page,
+            searchKey	:   obj.searchKey,
 		})
-		
-		//第一次加载的时候因为列表组件尚未渲染无法调用onBottomLoaded方法，所以第一次加载不调用此方法
-		function isFirst(){
-			if(!first){
-				obj.$refs.loadmore.onBottomLoaded();	//表示数据加载完毕	
-			}	
-		}
+
 		//获取服务器的数据
 		function getData(){
 			axios({
@@ -216,31 +209,51 @@ const actions = {
 				data: postData,
 			}).then(function(response) {
 				let result = response.data;
-				//if(result.code > 0){
-					//console.log(result);
-					commit(types.GET_DISCOUNTLIST,result.data)	
-					isFirst()		
-					if(obj.loadingAnimation){
-						obj.loadingAnimation();
-					}
-				//}
+				if(result.code > 0){
+					commit(types.GET_DISCOUNTLIST,result.data)
+				}
+                if(obj.loadingAnimation){
+                    obj.loadingAnimation();
+                }
 			}).catch(function(error) {
 				console.log(error);
 			});
 		}
-		
-		if(first){			//第一次加载数据，不需要判断页码是否是最后一页
-			getData();
-			return;
-		}
-		
-		if(state.page <= state.LastPage){		//非第一次次加载调用的方法
-			getData();
-		} else {
-			obj.allLoaded = true;
-			isFirst();
-		}
-	}
+
+		getData();
+	},
+	loadMoreDisCount({commit,state},obj){						//加载更多数据
+		var _this = this;
+		++ state.page;
+        let postData = qs.stringify({
+            ...getToken(),
+            page 		: state.page,
+            searchKey	:   obj.searchKey,
+        })
+        function getData(){
+            axios({
+                method: 'post',
+                url: _this._vm.$url + '/Api/Discount/get_discountlist',
+                data: postData,
+            }).then(function(response) {
+                let result = response.data;
+                if(result.code > 0){
+					commit(types.GET_DISCOUNTLIST,result.data)
+                }
+                obj.$refs.loadmore.onBottomLoaded();	//单次数据加载完毕
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+        // console.log(state.page);
+        // console.log(state.LastPage);
+        if(state.page <= state.LastPage){
+            getData();
+        } else {
+            obj.allLoaded = true;
+            obj.$refs.loadmore.onBottomLoaded();	//单次数据加载完毕
+        }
+	},
 }
 
 const mutations = {
