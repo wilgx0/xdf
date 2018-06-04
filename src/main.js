@@ -11,9 +11,11 @@ import qs from 'qs'
 import store from './store/index.js'
 import './validate.js'
 
+//console.log(getToken());
 //Vue.config.productionTip = false
 Vue.use(Mint);
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios
+
 Vue.prototype.$qs = qs;
 Vue.prototype.$url = '/apis';
 
