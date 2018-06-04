@@ -98,6 +98,10 @@
                 var name = this.$refs.excelFile.value;
                 var files = this.$refs.excelFile.files[0];
                 var remark = this.$refs.excelRemark.currentValue;
+                if(name == ''){
+                    Toast('请选择要上传的文件!');
+                    return;
+                }
                 formData.append("file", files);
                 formData.append("name", name);
                 formData.append("remark",remark);
