@@ -29,7 +29,7 @@
                                 </div>
                                 <div>
                                     <span><em>客户状态：</em>{{ cusstateToStr(item.cusstate) }}</span>
-                                    <span><em>签约状态：</em>{{ signstateToStr(item.signstate) }}</span>
+                                    <span><em>跟进情况：</em>{{ signstateToStr(item.signstate) }}</span>
                                 </div>
                             </li>
                         </ul>

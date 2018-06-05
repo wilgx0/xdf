@@ -18,6 +18,17 @@
 					
 					<mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model='cusRemark'  v-validate="'max:50'" name='备注' :readonly="cusstate==1"></mt-field>
 				</p>
+
+                <p >
+                    <mt-radio
+                        class="page-part my-signstate"
+                        title="跟进情况"
+                        v-model="signstate"
+                        :options="signstateOptions"
+                        @change="set_signstate($event)"
+                    />
+                </p>
+
 				<p class='btn'>
 					<template v-if="cusstate==1">
 						<mt-button type="primary" size="large" @click='save_cusinfo' disabled>提    交</mt-button>
@@ -40,13 +51,37 @@
 	import { Toast, MessageBox ,Indicator} from 'mint-ui'
 	//客户信息
 	export default{
+	    created(){
+            this.signstateOptions = [
+                {
+                    label: '已签',
+                    value: '1'
+                },
+                {
+                    label: '未签',
+                    value: '2'
+                },
+                {
+                    label: '洽谈',
+                    value: '3'
+                },
+            ];
+        },
 		data(){
 			return {
-				errorStyle:'',	
+				errorStyle:'',
 			}
 		},
 		computed:{
 			...mapGetters(['cusinfoShow']),
+            id:{
+                set(value){
+                    this.$store.state.customerInfo.id = value
+                },
+                get(){
+                    return this.$store.state.customerInfo.id
+                }
+            },
 			cusName:{
 				set(value){
 					this.$store.state.customerInfo.cusName = value
@@ -102,7 +137,15 @@
 				get(){
 					return this.$store.state.customerInfo.cusstate
 				}
-			}
+			},
+            signstate:{
+                set(value){
+                    this.$store.state.customerInfo.signstate = value
+                },
+                get(){
+                    return this.$store.state.customerInfo.signstate
+                }
+            }
 		},
 		watch:{
 			cusinfoShow:function(val){
@@ -111,11 +154,17 @@
 				setTimeout(function(){
 					_this.errors.clear();
 					_this.errorStyle='';
-				},300)	
-				
+				},300)
 			}
+
 		},
 		methods:{
+            set_signstate($event){
+                if(this.id){
+                    this.$store.dispatch('set_signstate',$event)
+                }
+
+            },
 			hide_cusinfo(){
 				this.$store.dispatch('hide_cusinfo')
 			},
@@ -154,5 +203,8 @@
 		.hide{
 			display:none;
 		}
+        .my-signstate{
+            text-align:left;
+        }
 	}
 </style>

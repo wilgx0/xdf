@@ -6,7 +6,10 @@
             <div class="heading">
                 <slot name="heading"></slot>
             </div>
-            <slot></slot>
+            <div class="dialog-body">
+                <slot></slot>
+            </div>
+
         </div>
     </div>
 </template>
