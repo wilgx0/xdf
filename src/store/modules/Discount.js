@@ -26,7 +26,8 @@ const state ={
 	subpage:1,				//子页面当前页
 	sublastpage:0,			//子页面的总页数
 	subid:0,				//子页面当前id
-	discountsum: 0,			//佣金合计数
+	discountsum: 0,			//已返佣金合计数
+    brokeragesum:0,         //应返佣金合计数
 }
 
 const getters = {
@@ -45,6 +46,9 @@ const getters = {
 	discountsum(state){
 		return state.discountsum;
 	},
+    brokeragesum(state){
+        return state.brokeragesum;
+    },
 	editInvoiceShow(state){
 		return state.editInvoiceShow
 	}
@@ -282,7 +286,8 @@ const mutations = {
 		state.sublastpage = data.pageCount;
 	},
 	[types.SET_DISCOUNTSUM](state,data){
-		state.discountsum = data;
+	    state.brokeragesum  = data.brokeragesum;
+		state.discountsum = data.discountsum;
 	},
 	[types.SHOW_INVOICE](state,id){
 		state.cusid = id

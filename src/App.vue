@@ -24,7 +24,7 @@
         <ul class='app-list' v-if='userStatus'>
             <li @click='show_cusinfo'><span><img src="../static/img/right.png" alt=""/></span>提交客户信息</li>
             <li @click='show_cuslist'><span><img src="../static/img/right.png" alt=""/></span>我的客户</li>
-            <li @click='show_discount'><span style='color:red;'>{{discountsum}}元	<img src="../static/img/right.png"
+            <li @click='show_discount'><span style='color:red;'>{{discountsum}}/<em style="font-style:normal;color:#888;">{{brokeragesum}}</em><img src="../static/img/right.png"
                                                                                          alt=""/></span>我的返佣
             </li>
             <li @click='show_upload_excel'><span><img src="../static/img/right.png" alt=""/></span>上传客户数据</li>
@@ -192,7 +192,7 @@
             },
         },
         computed: {
-            ...mapGetters(['userData', 'userStatus', 'discountsum']),
+            ...mapGetters(['userData', 'userStatus', 'discountsum','brokeragesum']),
         },
         created() {
             this.isLogin();		//检查用户是否登录

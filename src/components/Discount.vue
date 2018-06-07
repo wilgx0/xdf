@@ -21,14 +21,15 @@
 					<mt-loadmore :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
 						<ul class="page-loadmore-list">
 							<li v-for="item in discountlist" class="page-loadmore-listitem" @click='show_discountsub(item.customerid)'>
-								<div>
-									<span>
-										{{item.amount}}元		
+								<div class="brokerage-info">
+									<span class="brokerage-right">
+										<em>{{item.amount||0}}</em>/{{item.brokerage*item.discountpercent}}
 										<img src="../../static/img/right.png" alt="" />
 									</span>
 									<span>
 									{{item.name}}
 									</span>
+                                    <span>{{item.count||0}}/{{item.discountnum}}</span>
 								</div>
 								<div style='clear: both;width:0px;height:0px'></div>
 								<div class='invoice'>
@@ -174,6 +175,18 @@
 			height: 85px;
 		    text-align: left;
 		    padding: 0 20px;
+            .brokerage-info{
+                & > span{
+                    display:inline-block;
+                    width: 32%;
+                    &.brokerage-right{
+                        text-align:right;
+                        em{
+                            color:red;
+                        }
+                    }
+                }
+            }
 		    div{
 		    	height:49%;
 		    	line-height: 49%;
