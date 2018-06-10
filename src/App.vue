@@ -4,10 +4,10 @@
         <div class='app-member'>
             <p @click='show_personal'>
                 <span><img src="../static/img/right.png" alt=""/></span>
-            <ul class='app-member-username'>
-                <li>{{userData.username}}</li>
-                <li style="font-size:12px;">{{userData.placetel}}</li>
-            </ul>
+                <ul class='app-member-username'>
+                    <li>{{userData.username|substring(9)}}</li>
+                    <li style="font-size:12px;">{{userData.placetel}}</li>
+                </ul>
             </p>
         </div>
 
@@ -24,8 +24,17 @@
         <ul class='app-list' v-if='userStatus'>
             <li @click='show_cusinfo'><span><img src="../static/img/right.png" alt=""/></span>提交客户信息</li>
             <li @click='show_cuslist'><span><img src="../static/img/right.png" alt=""/></span>我的客户</li>
-            <li @click='show_discount'><span style='color:red;'>{{discountsum}}/<em style="font-style:normal;color:#888;">{{brokeragesum}}</em><img src="../static/img/right.png"
-                                                                                         alt=""/></span>我的返佣
+            <li @click='show_discount'>
+
+                <span style="font-size:10px;">
+                    <em>已返</em>
+                    <em style='color:#5FB878;'> {{(discountsum||0)|round}}</em> <em >/</em>
+                    <em>未返</em>
+                    <em style='color:red;'> {{(brokeragesum-discountsum||0)|round}}</em> <em >/</em>
+                    <em>应返</em>
+                    <em style="font-style:normal;color:#888;">{{ (brokeragesum||0)|round}}</em>
+                    <img src="../static/img/right.png"alt=""/>
+                </span>我的返佣
             </li>
             <li @click='show_upload_excel'><span><img src="../static/img/right.png" alt=""/></span>上传客户数据</li>
             <li @click='loginOut'><span><img src="../static/img/right.png" alt=""/></span>退出登录</li>
@@ -78,7 +87,7 @@
     import Discount from './components/Discount.vue'					//返佣记录
     import ModalDialog from './components/dialog.vue'
     import { Toast, MessageBox,Indicator} from 'mint-ui'
-    import {getToken} from './common.js'
+    import {getToken,round,substring} from './common.js'
 
     var storage = window.sessionStorage;
 
@@ -88,11 +97,16 @@
 
             }
         },
+        filters:{
+            round: function (value) {
+                return round(value);
+            },
+            substring:function(value,length){
+                return substring(value,length);
+            }
+        },
         methods: {
             uploadFile(){           //上传文件
-                // console.log(this.$refs.excelFile.value);
-                // console.log(this.$refs.excelRemark.currentValue);
-                // return;
                 var _this = this;
                 var formData = new FormData();
                 var name = this.$refs.excelFile.value;

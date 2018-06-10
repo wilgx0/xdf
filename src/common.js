@@ -115,12 +115,36 @@ function myValidate (val,rule){
     }[rule]();
 }
 
+/**
+ * 四舍五入保留2位小数
+ * @param num
+ */
+function round(num){
+ return Math.round(num * 100) / 100;
+}
 
+/**
+ * 字符串截取
+ * @param str
+ * @param num
+ */
+function substring(str,length){
+	if(str == undefined) {
+		return '';
+	}
+	if(str.length>length){
+        return str.substring(0,length)+'..';
+	} else {
+        return str;
+	}
+
+}
 
 export {
 	getToken,
 	timestampToTime,
 	getFieldsByJsonstr,
     myValidate,
-
+    round,
+    substring,
 }

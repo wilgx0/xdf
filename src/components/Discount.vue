@@ -22,20 +22,24 @@
 						<ul class="page-loadmore-list">
 							<li v-for="item in discountlist" class="page-loadmore-listitem" @click='show_discountsub(item.customerid)'>
 								<div class="brokerage-info">
-									<span class="brokerage-right">
-										<em>{{item.amount||0}}</em>/{{item.brokerage*item.discountpercent}}
+									<span class="brokerage-right" style="width:63%;">
+										已返<em style="color:#5FB878;">{{(item.amount||0)|round }}</em>
+										未返<em style="color:red;">{{((item.brokerage*item.discountpercent)-item.amount||0)|round }}</em>
+										应返<em style="color:#888;">{{ ((item.brokerage*item.discountpercent)||0)|round }}</em>
 										<img src="../../static/img/right.png" alt="" />
 									</span>
-									<span>
-									{{item.name}}
+
+									<span style="width:23%;font-size:14px;">
+									{{item.name|substring(5)}}
 									</span>
-                                    <span>{{item.count||0}}/{{item.discountnum}}</span>
+
+                                    <span tyle="width:12%;">{{item.count||0}}/{{item.discountnum||0}}次</span>
 								</div>
 								<div style='clear: both;width:0px;height:0px'></div>
 								<div class='invoice'>
 									<div >
-										<p><em>快递单号:</em>{{getFieldsByJsonstr(item.invoice,'expressOdd')}}</p>
-										<p><em>快递名称:</em>{{getFieldsByJsonstr(item.invoice,'expressName')}}</p>
+										<p><em>快递单号:</em>{{getFieldsByJsonstr(item.invoice,'expressOdd')|substring(12)}}</p>
+										<p><em>快递名称:</em>{{getFieldsByJsonstr(item.invoice,'expressName')|substring(12)}}</p>
 									</div>
 									<div>
 										<mt-button size="small" type="primary" @click.stop='show_invoice(item.customerid)'>发票信息</mt-button>
@@ -64,7 +68,7 @@
 	import { mapGetters } from 'vuex'
 	import DiscountSub from './DiscountSub.vue'
 	import EditInvoice from './EditInvoice.vue'
-	import {getFieldsByJsonstr} from '../common.js'
+	import {getFieldsByJsonstr,round,substring} from '../common.js'
 	import {Indicator} from 'mint-ui'
 
 	export default {
@@ -80,6 +84,15 @@
 				}
 			},
 		},
+        filters:{
+            round: function (value) {
+                return round(value);
+            },
+            substring:function(value,length){
+                return substring(value,length);
+			}
+
+        },
 		data() {
 			return {
                 searchKey: '',      	//要搜索的值
@@ -178,12 +191,10 @@
             .brokerage-info{
                 & > span{
                     display:inline-block;
-                    width: 32%;
+					font-size:10px;
                     &.brokerage-right{
                         text-align:right;
-                        em{
-                            color:red;
-                        }
+
                     }
                 }
             }

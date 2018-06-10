@@ -16,18 +16,18 @@
 					
 					<mt-field label="年级意向" placeholder="请输入年级意向" v-model='cusClass'  v-validate="'max:20'" name='年级意向' :readonly="cusstate==1"></mt-field>
 					
-					<mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model='cusRemark'  v-validate="'max:50'" name='备注' :readonly="cusstate==1"></mt-field>
+					<mt-field label="跟进情况" placeholder="跟进情况" type="textarea" rows="4" v-model='cusRemark'  v-validate="'max:50'" name='跟进情况' :readonly="cusstate==1"></mt-field>
 				</p>
 
-                <p >
-                    <mt-radio
-                        class="page-part my-signstate"
-                        title="跟进情况"
-                        v-model="signstate"
-                        :options="signstateOptions"
-                        @change="set_signstate($event)"
-                    />
-                </p>
+                <!--<p >-->
+                    <!--<mt-radio-->
+                        <!--class="page-part my-signstate"-->
+                        <!--title="跟进情况"-->
+                        <!--v-model="signstate"-->
+                        <!--:options="signstateOptions"-->
+                        <!--@change="set_signstate($event)"-->
+                    <!--/>-->
+                <!--</p>-->
 
 				<p class='btn'>
 					<template v-if="cusstate==1">
@@ -52,20 +52,20 @@
 	//客户信息
 	export default{
 	    created(){
-            this.signstateOptions = [
-                {
-                    label: '已签',
-                    value: '1'
-                },
-                {
-                    label: '未签',
-                    value: '2'
-                },
-                {
-                    label: '洽谈',
-                    value: '3'
-                },
-            ];
+            // this.signstateOptions = [
+            //     {
+            //         label: '已签',
+            //         value: '1'
+            //     },
+            //     {
+            //         label: '未签',
+            //         value: '2'
+            //     },
+            //     {
+            //         label: '洽谈',
+            //         value: '3'
+            //     },
+            // ];
         },
 		data(){
 			return {
@@ -159,12 +159,12 @@
 
 		},
 		methods:{
-            set_signstate($event){
-                if(this.id){
-                    this.$store.dispatch('set_signstate',$event)
-                }
-
-            },
+            // set_signstate($event){
+            //     if(this.id){
+            //         this.$store.dispatch('set_signstate',$event)
+            //     }
+            //
+            // },
 			hide_cusinfo(){
 				this.$store.dispatch('hide_cusinfo')
 			},

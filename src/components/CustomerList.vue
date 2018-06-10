@@ -24,7 +24,7 @@
                         <ul class="page-loadmore-list">
                             <li v-for="item in cusList" class="page-loadmore-listitem" @click='show_cusinfo(item.id)'>
                                 <div>
-                                    <span>{{ item.name }}</span>
+                                    <span>{{ item.name|substring(5) }}</span>
                                     <span><em>{{timestampToTime(item.createtime)}}</em></span>
                                 </div>
                                 <div>
@@ -51,7 +51,7 @@
     import 'animate.css/animate.css'
     import {mapGetters} from 'vuex'
     import {Toast, MessageBox, Indicator} from 'mint-ui'
-    import {timestampToTime} from '../common.js'
+    import {timestampToTime,substring} from '../common.js'
 
     export default {
         data() {
@@ -62,6 +62,12 @@
                 bottomStatus: '',       //数据加载状态标记
                 wrapperHeight: 0,
             }
+        },
+        filters:{
+            substring:function(value,length){
+                return substring(value,length);
+            }
+
         },
         computed: {
             ...mapGetters(['cuslistShow', "cusList"]),
