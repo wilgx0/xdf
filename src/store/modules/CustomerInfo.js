@@ -72,9 +72,9 @@ const actions = {
             cusRemark	:state.cusRemark,				//备注
             id			:state.id,						//id,
         };
-		if(!state.id){ //新增数据的操作，添加签约状态字段
-            tmpData.signstate = state.signstate
-        }
+        // if(!state.id){ //新增数据的操作，添加签约状态字段
+        //     tmpData.signstate = state.signstate
+        // }
 		let postData = qs.stringify({
 			...getToken(),
             ...tmpData,

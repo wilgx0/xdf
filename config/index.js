@@ -14,7 +14,6 @@ module.exports = {
         '/apis': {
             // 测试环境
             target: 'http://www.xdf.my',  // 接口域名
-            //target: 'http://xdftest.ynyccm.com',  // 接口域名
             changeOrigin: true,  //是否跨域
             pathRewrite: {
                 '^/apis': ''   //需要rewrite重写的,

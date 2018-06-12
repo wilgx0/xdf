@@ -6,17 +6,17 @@
 			</mt-header>
 			<div class='main'>	
 				<p>
-					<mt-field label="客户名称" placeholder="请输入客户名称" v-model='cusName'  v-validate="'required|max:20'" name='客户名称' :readonly="cusstate==1"></mt-field>
+					<mt-field label="客户名称" placeholder="请输入客户名称" v-model='cusName'  v-validate="'required|max:20'" name='客户名称' :readonly="id?true:false"></mt-field>
 			
-					<mt-field label="客户电话" placeholder="请输入客户电话" v-model='cusTel'  v-validate="'required|phone'" name='客户电话' :readonly="cusstate==1"></mt-field>
+					<mt-field label="客户电话" placeholder="请输入客户电话" v-model='cusTel'  v-validate="'required|phone'" name='客户电话' :readonly="id?true:false"></mt-field>
 			
-					<mt-field label="微信号" placeholder="请输入微信号" v-model='cusWx'  v-validate="'max:20'" name='微信号' :readonly="cusstate==1"></mt-field>
+					<mt-field label="微信号" placeholder="请输入微信号" v-model='cusWx'  v-validate="'max:20'" name='微信号' :readonly="id?true:false"></mt-field>
 			
-					<mt-field label="意向国家" placeholder="请输入意向国家" v-model='cusCountry'  v-validate="'max:20'" name='意向国家' :readonly="cusstate==1"></mt-field>
+					<mt-field label="意向国家" placeholder="请输入意向国家" v-model='cusCountry'  v-validate="'max:20'" name='意向国家' :readonly="id?true:false"></mt-field>
 					
-					<mt-field label="年级意向" placeholder="请输入年级意向" v-model='cusClass'  v-validate="'max:20'" name='年级意向' :readonly="cusstate==1"></mt-field>
+					<mt-field label="年级意向" placeholder="请输入年级意向" v-model='cusClass'  v-validate="'max:20'" name='年级意向' :readonly="id?true:false"></mt-field>
 					
-					<mt-field label="跟进情况" placeholder="跟进情况" type="textarea" rows="4" v-model='cusRemark'  v-validate="'max:50'" name='跟进情况' :readonly="cusstate==1"></mt-field>
+					<mt-field label="跟进情况" placeholder="跟进情况" type="textarea" rows="4" v-model='cusRemark'  v-validate="'max:50'" name='跟进情况' ></mt-field>
 				</p>
 
                 <!--<p >-->
@@ -30,12 +30,7 @@
                 <!--</p>-->
 
 				<p class='btn'>
-					<template v-if="cusstate==1">
-						<mt-button type="primary" size="large" @click='save_cusinfo' disabled>提    交</mt-button>
-					</template >
-					<template v-else>
-						<mt-button type="primary" size="large" @click='save_cusinfo'>提    交</mt-button>
-					</template >
+                    <mt-button type="primary" size="large" @click='save_cusinfo'>提    交</mt-button>
 				</p>
 				
 				<span v-show="errors.any()" v-cloak :class='["error",errorStyle]'> 

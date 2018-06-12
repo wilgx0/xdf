@@ -17,8 +17,8 @@ Vue.use(Mint);
 Vue.prototype.$http = axios
 
 Vue.prototype.$qs = qs;
-Vue.prototype.$url = '/apis';
-//Vue.prototype.$url = '';
+//Vue.prototype.$url = '/apis';
+Vue.prototype.$url = '';
 
 /* eslint-disable no-new */
 new Vue({
